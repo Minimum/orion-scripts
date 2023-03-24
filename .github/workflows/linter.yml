@@ -1,0 +1,23 @@
+name: Shell Linter
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+  workflow_dispatch:
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Lint Shell Code
+        uses: github/super-linter/slim@v4.10.1
+        env:
+          DEFAULT_BRANCH: master
+          FILTER_REGEX_EXCLUDE: .*(\.github/|README\.md).*
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
